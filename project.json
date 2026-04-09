@@ -1,0 +1,29 @@
+{
+  "overview": "DSWithRavi is a world-class data science portfolio website for Ravi, featuring an animated hero section, detailed project case studies with interactive charts, a protected admin panel for managing projects and files, recruiter-focused sections, and a sleek dark glassmorphism design with neon blue/purple accents.",
+  "features": [
+    "Animated hero with typing text effect",
+    "Projects grid with search and tag filtering",
+    "Full case study pages (Problem → Data → Approach → Results → Insights)",
+    "Interactive Recharts visualizations in project details",
+    "File upload and preview (CSV, Excel, Python, images)",
+    "Protected admin panel with Internet Identity login",
+    "Project CRUD with featured project toggles",
+    "Recruiter Hook section with animated Why Hire Me cards",
+    "Testimonials section",
+    "Contact form with backend storage",
+    "Dark/light theme toggle",
+    "Scroll reveal animations and glassmorphism UI"
+  ],
+  "category": "portfolio",
+  "tags": [
+    "data-science",
+    "portfolio",
+    "machine-learning",
+    "admin-panel",
+    "glassmorphism",
+    "animated",
+    "recharts",
+    "case-studies"
+  ],
+  "last_updated": "2026-04-09T12:21:03.572Z"
+}

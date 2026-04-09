@@ -1,0 +1,144 @@
+type _ImmutableObjectStorageRefillResult = 
+ record {
+   success: opt bool;
+   topped_up_amount: opt nat;
+ };
+type _ImmutableObjectStorageRefillInformation = record {
+                                                  proposed_top_up_amount:
+                                                   opt nat;};
+type _ImmutableObjectStorageCreateCertificateResult = 
+ record {
+   blob_hash: text;
+   method: text;
+ };
+type Timestamp = int;
+type TestimonialInput = 
+ record {
+   approved: bool;
+   company: text;
+   imageUrl: opt text;
+   name: text;
+   quote: text;
+   role: text;
+ };
+type TestimonialId = nat;
+type Testimonial = 
+ record {
+   approved: bool;
+   company: text;
+   id: TestimonialId;
+   imageUrl: opt text;
+   name: text;
+   quote: text;
+   role: text;
+ };
+type ProjectInput = 
+ record {
+   approach: text;
+   datasetDescription: text;
+   description: text;
+   featured: bool;
+   githubUrl: opt text;
+   insights: text;
+   liveDemoUrl: opt text;
+   problemStatement: text;
+   results: text;
+   tags: vec text;
+   title: text;
+ };
+type ProjectId = nat;
+type Project = 
+ record {
+   approach: text;
+   createdAt: Timestamp;
+   datasetDescription: text;
+   description: text;
+   featured: bool;
+   githubUrl: opt text;
+   id: ProjectId;
+   insights: text;
+   liveDemoUrl: opt text;
+   problemStatement: text;
+   results: text;
+   tags: vec text;
+   title: text;
+   viewCount: nat;
+ };
+type FileMetadataInput = 
+ record {
+   fileKey: ExternalBlob;
+   fileType: text;
+   filename: text;
+   projectId: ProjectId;
+ };
+type FileMetadata = 
+ record {
+   fileKey: ExternalBlob;
+   fileType: text;
+   filename: text;
+   id: FileId;
+   projectId: ProjectId;
+   uploadedAt: Timestamp;
+ };
+type FileId = nat;
+type ExternalBlob = blob;
+type ContactSubmission = 
+ record {
+   createdAt: Timestamp;
+   email: text;
+   id: ContactId;
+   message: text;
+   name: text;
+   read: bool;
+   subject: text;
+ };
+type ContactInput = 
+ record {
+   email: text;
+   message: text;
+   name: text;
+   subject: text;
+ };
+type ContactId = nat;
+type Analytics = 
+ record {
+   contactCount: nat;
+   featuredCount: nat;
+   projectCount: nat;
+   totalViews: nat;
+ };
+service : {
+  _immutableObjectStorageBlobsAreLive: (hashes: vec blob) -> (vec bool) query;
+  _immutableObjectStorageBlobsToDelete: () -> (vec blob) query;
+  _immutableObjectStorageConfirmBlobDeletion: (blobs: vec blob) -> ();
+  _immutableObjectStorageCreateCertificate: (blobHash: text) ->
+   (_ImmutableObjectStorageCreateCertificateResult);
+  _immutableObjectStorageRefillCashier: (refillInformation:
+   opt _ImmutableObjectStorageRefillInformation) ->
+   (_ImmutableObjectStorageRefillResult);
+  _immutableObjectStorageUpdateGatewayPrincipals: () -> ();
+  addFileMetadata: (input: FileMetadataInput) -> (FileMetadata);
+  createProject: (input: ProjectInput) -> (Project);
+  createTestimonial: (input: TestimonialInput) -> (Testimonial);
+  deleteContact: (id: ContactId) -> (bool);
+  deleteFileMetadata: (id: FileId) -> (bool);
+  deleteProject: (id: ProjectId) -> (bool);
+  deleteTestimonial: (id: TestimonialId) -> (bool);
+  getAdmin: () -> (principal) query;
+  getAnalytics: () -> (Analytics);
+  getFilesByProject: (projectId: ProjectId) -> (vec FileMetadata) query;
+  getProject: (id: ProjectId) -> (opt Project);
+  incrementViewCount: (id: ProjectId) -> ();
+  init: () -> ();
+  isAdmin: (p: principal) -> (bool) query;
+  listContacts: () -> (vec ContactSubmission);
+  listFeaturedProjects: () -> (vec Project) query;
+  listProjects: () -> (vec Project) query;
+  listTestimonials: () -> (vec Testimonial) query;
+  markContactRead: (id: ContactId) -> (bool);
+  setAdmin: (newAdmin: principal) -> ();
+  submitContact: (input: ContactInput) -> (ContactSubmission);
+  toggleFeatured: (id: ProjectId) -> (bool);
+  updateProject: (id: ProjectId, input: ProjectInput) -> (bool);
+  updateTestimonial: (id: TestimonialId, input: TestimonialInput) -> (bool);
+}

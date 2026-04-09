@@ -1,0 +1,87 @@
+// Version: 1.0.0
+type ContactId__479742040 = Nat;
+type ContactSubmission__397518865 =
+  {
+    createdAt : Timestamp__301639476;
+    email : Text;
+    id : ContactId__479742040;
+    message : Text;
+    name : Text;
+    read : Bool;
+    subject : Text
+  };
+type ExternalBlob__246066408 = Blob;
+type FileId__283657257 = Nat;
+type FileMetadata__909572109 =
+  {
+    fileKey : ExternalBlob__246066408;
+    fileType : Text;
+    filename : Text;
+    id : FileId__283657257;
+    projectId : ProjectId__478417951;
+    uploadedAt : Timestamp__301639476
+  };
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type ProjectId__478417951 = Nat;
+type Project__19257312 =
+  {
+    approach : Text;
+    createdAt : Timestamp__301639476;
+    datasetDescription : Text;
+    description : Text;
+    featured : Bool;
+    githubUrl : ?Text;
+    id : ProjectId__478417951;
+    insights : Text;
+    liveDemoUrl : ?Text;
+    problemStatement : Text;
+    results : Text;
+    tags : [Text];
+    title : Text;
+    viewCount : Nat
+  };
+type TestimonialId__347260858 = Nat;
+type Testimonial__174139384 =
+  {
+    approved : Bool;
+    company : Text;
+    id : TestimonialId__347260858;
+    imageUrl : ?Text;
+    name : Text;
+    quote : Text;
+    role : Text
+  };
+type Timestamp__301639476 = Int;
+actor {
+  stable var _admin : Principal;
+  stable var _nextContactId : Nat;
+  stable var _nextFileId : Nat;
+  stable var _nextProjectId : Nat;
+  stable var _nextTestimonialId : Nat;
+  stable var _seeded : Bool;
+  stable contacts :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?ContactSubmission__397518865]];
+      var elementIndex : Nat__490723111
+    };
+  stable files :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?FileMetadata__909572109]];
+      var elementIndex : Nat__490723111
+    };
+  stable projects :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Project__19257312]];
+      var elementIndex : Nat__490723111
+    };
+  stable testimonials :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Testimonial__174139384]];
+      var elementIndex : Nat__490723111
+    }
+};
